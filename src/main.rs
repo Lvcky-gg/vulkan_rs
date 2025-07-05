@@ -3,7 +3,7 @@ use std::{error::Error, result::Result};
 use winit::{dpi::LogicalSize, event_loop::EventLoop, window::Window, window::WindowBuilder};
 struct VulkanApp {
     _event_loop: EventLoop<()>,
-    // _window: Window,
+    _window: Window,
     _entry: Entry,
     instance: Instance,
 }
@@ -14,9 +14,9 @@ impl VulkanApp {
 
         let event_loop = EventLoop::new()?;
         let entry: Entry = unsafe { Entry::load()? };
-        // let window = WindowBuilder::new()
-        //     .with_title("Vulkan tutorial with Ash")
-        //     .with_
+        let window = WindowBuilder::new()
+            .with_title("Vulkan tutorial with Ash")
+            .build(&event_loop)?;
         let app_info: vk::ApplicationInfo<'_> = vk::ApplicationInfo {
             api_version: vk::make_api_version(0, 1, 0, 0),
             ..Default::default()
@@ -29,7 +29,7 @@ impl VulkanApp {
 
         Ok(Self {
             _event_loop: event_loop,
-            // _window: window,
+            _window: window,
             _entry: entry,
             instance,
         })
